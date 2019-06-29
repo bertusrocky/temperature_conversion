@@ -1,39 +1,65 @@
-const celsius = document.getElementById('celInput').addEventListener('input', (e) => {
+// Get UI elements
+let celsiusInput = document.getElementById('celInput');
+let fahrenheitInput = document.getElementById('fahInput');
+let kelvinInput = document.getElementById('kelInput');
+let celsiusOutput = document.getElementById('celOutput');
+let fahrenheitOutput = document.getElementById('fahOutput');
+let kelvinOutput = document.getElementById('kelOutput');
+
+// Calculate from Celsius input
+celsiusInput.addEventListener('input', (e) => {
 
   let cel = parseFloat(e.target.value);
-  
-  if(isFinite(cel)) {
-    document.getElementById('fahOutput').innerHTML = ((cel * 9/5) + 32).toFixed(2);
-    document.getElementById('kelOutput').innerHTML = ((cel + 273.15)).toFixed(2);
-  } else {
-    document.getElementById('fahOutput').innerHTML = '';
-    document.getElementById('kelOutput').innerHTML = '';
-  }
-});
 
-const fahrenheit = document.getElementById('fahInput').addEventListener('input', (e) => {
+    if(isFinite(cel)) {
+      fahrenheitOutput.innerHTML = ((cel * 9/5) + 32).toFixed(2);
+      kelvinOutput.innerHTML = ((cel + 273.15)).toFixed(2);
+    } else {
+      fahrenheitOutput.innerHTML = '';
+      kelvinOutput.innerHTML = '';
+    }
+  });
+
+// Calculate from Fahrenheit
+fahrenheitInput.addEventListener('input', (e) => {
 
   let fah = parseFloat(e.target.value);
   
-  if(isFinite(fah)) {
-    document.getElementById('celOutput').innerHTML = ((fah - 32) * 5/9).toFixed(2);
-    document.getElementById('kelOutput').innerHTML = ((fah - 32) * 5/9 + 273.15).toFixed(2);
-  } else {
-    document.getElementById('celOutput').innerHTML = '';
-    document.getElementById('kelOutput').innerHTML = '';
-  }
-});
+    if(isFinite(fah)) {
+      celsiusOutput.innerHTML = ((fah - 32) * 5/9).toFixed(2);
+      kelvinOutput.innerHTML = ((fah - 32) * 5/9 + 273.15).toFixed(2);
+    } else {
+      celsiusOutput.innerHTML = '';
+      kelvinOutput.innerHTML = '';
+    }
+  });
 
-const kelvin = document.getElementById('kelInput').addEventListener('input', (e) => {
+// Calculate from Kelvin
+kelvinInput.addEventListener('input', (e) => {
 
   let kel = parseFloat(e.target.value);
   
-  if(isFinite(kel)) {
-    document.getElementById('celOutput').innerHTML = (kel - 273.15).toFixed(2);
-    document.getElementById('fahOutput').innerHTML = ((kel - 273.15) * 9/5 + 32).toFixed(2);
-  } else {
-    document.getElementById('celOutput').innerHTML = '';
-    document.getElementById('fahOutput').innerHTML = '';
-  }
-});
+    if(isFinite(kel)) {
+      celsiusOutput.innerHTML = (kel - 273.15).toFixed(2);
+      fahrenheitOutput.innerHTML = ((kel - 273.15) * 9/5 + 32).toFixed(2);
+    } else {
+      celsiusOutput.innerHTML = '';
+      fahrenheitOutput.innerHTML = '';
+    }
+  });
 
+
+// Clear input and output fields
+
+celsiusInput.addEventListener('blur', clearField);
+fahrenheitInput.addEventListener('blur', clearField);
+kelvinInput.addEventListener('blur', clearField);
+
+function clearField (e) {
+  this.value = '';
+  celsiusOutput.innerHTML = '';
+  fahrenheitOutput.innerHTML = '';
+  kelvinOutput.innerHTML = '';
+}
+
+clearField();
